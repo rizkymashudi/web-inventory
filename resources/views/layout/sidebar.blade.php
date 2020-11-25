@@ -13,38 +13,56 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview menu-open">
-        <a href="{{ route('Dashboard') }}" class="nav-link active">
+      <li class="nav-item">
+        <a href="{{ route('Dashboard') }}" class="nav-link {{ Request::is('dashboard') ? 'active' : null }}">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>Dashboard</p>
         </a>
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="{{ route('Stock') }}" class="nav-link">
+        <a href="#" class="nav-link {{ Request::is('stock') ? 'active' : null }}">
           <i class="nav-icon fas fa-edit"></i>
-          <p>Stock</p>
-        </a>
-      </li>
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-table"></i>
-          <p>
-            Settings
-            <i class="fas fa-angle-left right"></i>
-          </p>
+          <p>Stock<i class="fas fa-angle-left right"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pages/tables/simple.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Profile</p>
+            <a href="{{ route('incomingStock') }}" class="nav-link {{ Request::is('stock') ? 'active' : null }}">
+              <i class="fas fa-sign-in-alt nav-icon"></i>
+              <p>Incoming Stock</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/tables/data.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>User management</p>
+            <a href="{{ route('OutcomingStock') }}" class="nav-link {{ Request::is('outcomingstock') ? 'active' : null }}">
+              <i class="fas fa-sign-out-alt nav-icon"></i>
+              <p>Outcoming Stock</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('UnitStock') }}" class="nav-link {{ Request::is('UnitStock') ? 'active' : null }}">
+              <i class="fas fa-shapes nav-icon"></i>
+              <p>Unit</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link ">
+          <i class="nav-icon fas fa-cog"></i>
+          <p>Settings<i class="fas fa-angle-left right"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{ route('UserSetting') }}" class="nav-link">
+              <i class="fas fa-user-cog nav-icon"></i>
+              <p>User settings</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('UserManagement') }}" class="nav-link">
+              <i class="fas fa-users-cog nav-icon"></i>
+              <p>Users management</p>
             </a>
           </li>
         </ul>

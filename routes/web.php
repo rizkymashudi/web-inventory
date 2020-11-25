@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 Route::get('dashboard', 'DashboardController@index')->name('Dashboard');
-Route::get('stock', 'StockController@index')->name('Stock');
+Route::get('stock', 'StockController@index')->name('incomingStock');
+Route::get('outcomingstock', 'OutcomeStockController@index')->name('OutcomingStock');
+Route::get('UnitStock', 'UnitController@index')->name('UnitStock');
+Route::get('UserSetting', 'UserSettingController@index')->name('UserSetting');
+Route::get('UserManagement', 'UserManagementController@index')->name('UserManagement');
