@@ -22,6 +22,7 @@ Route::get('dashboard', 'DashboardController@index')->name('Dashboard');
 Route::get('stock', 'StockController@index')->name('incomingStock');
 Route::post('stock', 'StockController@store')->name('CreateIncomingStock');
 Route::post('Updatestock', 'StockController@update')->name('UpdateIncomingStock');
+Route::delete('Deletestock', 'StockController@delete')->name('DeleteIncomingStock');
 
 Route::get('outcomingstock', 'OutcomeStockController@index')->name('OutcomingStock');
 

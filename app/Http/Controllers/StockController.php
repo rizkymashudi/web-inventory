@@ -74,4 +74,14 @@ class StockController extends Controller
         Alert::success('Success!', 'Data updated');
         return back();
     }
+
+    public function delete(Request $request){
+
+        $TransactionID = $request->TransactionID;
+
+        IncomingGoods::where('id_transaksi', '=', $TransactionID)->delete();
+
+        alert::success('Success', 'Data deleted!');
+        return back();
+    }
 }

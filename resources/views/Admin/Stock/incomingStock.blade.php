@@ -57,7 +57,7 @@
                         <td>
                             <div class="d-flex flex-nowrap justify-content-center">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataStock{{ $itm->id_transaksi }}"><i class="far fa-edit"></i></button>&nbsp;
-                                <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataStock"><i class="far fa-trash-alt"></i></button>&nbsp;
+                                <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataStock{{ $itm->id_transaksi}}"><i class="far fa-trash-alt"></i></button>&nbsp;
                                 <button class="btn btn-success" data-toggle="modal" data-target="#OutcomeStock"><i class="fas fa-sign-out-alt"></i></button> 
                             </div>
                         </td>
@@ -205,7 +205,8 @@
       
 
       {{-- MODAL DELETE STOCK --}}
-      <div class="modal fade" id="deleteDataStock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      @foreach ($items as $itm)
+      <div class="modal fade" id="deleteDataStock{{ $itm->id_transaksi }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -214,16 +215,23 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              Are you sure want to delete?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Yes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            </div>
+            <form action="{{ route('DeleteIncomingStock') }}" method="POST">
+              @method('delete')
+              @csrf
+              <div class="modal-body">
+                Are you sure want to delete Transaction ID {{ $itm->id_transaksi }}?
+                <input type="text" name="TransactionID" value="{{ $itm->id_transaksi }}">
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
+      @endforeach
+      
 
 
       {{-- MODAL OUTCOME STOCK --}}
