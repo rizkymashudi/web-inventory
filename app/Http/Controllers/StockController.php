@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\IncomingGoods;
 use App\Models\Unit;
 use Validator;
+use Alert;
 
 class StockController extends Controller
 {
@@ -45,5 +46,32 @@ class StockController extends Controller
 
         return back()->with('success', 'Insert data success');
 
+    }
+
+    public function update(Request $request){
+
+        $validate = Validator::make($request->all(), [
+            'ItemCode' => 'required',
+            'ItemName' => 'required',
+            'unit'     => 'required',
+            'Stockquantity' => 'required' 
+        ]);
+        
+        if($validate->fails()):
+            alert()->error($validate->errors()->first());
+            return back();
+        endif;
+
+       IncomingGoods::where('id_transaksi', $request->TransactionID)
+                        ->update([
+                            'kode_barang' => $request->ItemCode,
+                            'nama_barang' => $request->ItemName,
+                            'satuan'      => $request->unit,
+                            'jumlah'      => $request->Stockquantity
+                        ]);
+                        
+        
+        Alert::success('Success!', 'Data updated');
+        return back();
     }
 }

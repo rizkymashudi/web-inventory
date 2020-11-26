@@ -157,7 +157,7 @@
                     <h4>form input data</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="#" id="formAddNewStock" name="updateStock">
+                    <form method="post" action="{{ route('UpdateIncomingStock') }}" enctype="multipart/form-data" name="updateStock">
                         @csrf
                         <div class="modal-body">
                           <div class="form-group">
@@ -166,31 +166,31 @@
                           </div>
                           <div class="form-group">
                               <label for="date">Choose date</label>
-                              <input type="date" class="form-control form-control-sm" id="pickDate" name="Date" readonly>
+                              <input type="date" class="form-control form-control-sm" id="pickDate" name="Date" value="{{ $itm->tanggal }}" readonly>
                           </div>
                           <div class="form-group">
                               <label for="Code">Code</label>
-                              <input type="text" class="form-control form-control-sm" id="CodeBarang" placeholder="Code" name="CodeBarang">
+                              <input type="text" class="form-control form-control-sm" id="CodeBarang" placeholder="Code" name="ItemCode" value="{{ $itm->kode_barang }}">
                           </div>
                           <div class="form-group">
                               <label for="Nama">Name</label>
-                              <input type="text" class="form-control form-control-sm" id="StockName" placeholder="Name" name="StockName">
+                              <input type="text" class="form-control form-control-sm" id="StockName" placeholder="Name" name="ItemName" value="{{ $itm->nama_barang }}">
                           </div>
                           <div class="form-group">
                               <label for="unitID">Choose unit</label>
-                              <select class="form-control form-control-sm" style="width: 100%;" required name="unit_id"> 
-                                <option selected disabled value="">Choose...</option>
-                                
-                                  <option value="satu">Test</option>
-                               
+                              <select class="form-control form-control-sm" style="width: 100%;" name="unit"> 
+                                <option selected value="{{ $itm->satuan }}">{{ $itm->satuan }}</option>
+                                @foreach ($Unit as $unt)
+                                  <option value="{{ $unt->kode_satuan}}">{{ $unt->kode_satuan }}</option>  
+                                @endforeach
                               </select>
                           </div>
                           <div class="form-group">
                               <label for="Qty">Quantity</label>
-                              <input type="number" class="form-control form-control-sm" id="qty" placeholder="Input Qty" name="Stockquantity" min="0">
+                              <input type="number" class="form-control form-control-sm" id="qty" placeholder="Input Qty" name="Stockquantity" min="0" value="{{ $itm->jumlah }}">
                           </div>
                           <div class="modal-footer">
-                              <button type="submit" class="btn btn-primary" form="formAddNewStock"><i class="far fa-save"></i>&nbsp;Simpan</button>
+                              <button type="submit" class="btn btn-primary"><i class="far fa-save"></i>&nbsp;Simpan</button>
                               <button type="submit" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;Batal</button>
                           </div>
                         </div> 

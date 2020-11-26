@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('dashboard', 'DashboardController@index')->name('Dashboard');
+
 Route::get('stock', 'StockController@index')->name('incomingStock');
 Route::post('stock', 'StockController@store')->name('CreateIncomingStock');
+Route::post('Updatestock', 'StockController@update')->name('UpdateIncomingStock');
 
 Route::get('outcomingstock', 'OutcomeStockController@index')->name('OutcomingStock');
 
