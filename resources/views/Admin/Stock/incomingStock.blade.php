@@ -46,21 +46,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet Explorer 4.0</td>
-                            <td>Win 95+</td>
-                            <td> 4</td>
-                            <td>X</td>
-                            <td>234234</td>
-                            <td>
-                                <div class="d-flex flex-nowrap justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataStock"><i class="far fa-edit"></i></button>&nbsp;
-                                    <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataStock"><i class="far fa-trash-alt"></i></button>&nbsp;
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#OutcomeStock"><i class="fas fa-sign-out-alt"></i></button> 
-                                </div>
-                            </td>
-                        </tr>
+                      @foreach ($items as $itm)
+                      <tr>
+                        <td>{{ $itm->id_transaksi }}</td>
+                        <td>{{ $itm->kode_barang }}</td>
+                        <td>{{ $itm->nama_barang }}</td>
+                        <td>{{ $itm->satuan }}</td>
+                        <td>{{ $itm->jumlah }}</td>
+                        <td>{{ $itm->tanggal }}</td>
+                        <td>
+                            <div class="d-flex flex-nowrap justify-content-center">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataStock"><i class="far fa-edit"></i></button>&nbsp;
+                                <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataStock"><i class="far fa-trash-alt"></i></button>&nbsp;
+                                <button class="btn btn-success" data-toggle="modal" data-target="#OutcomeStock"><i class="fas fa-sign-out-alt"></i></button> 
+                            </div>
+                        </td>
+                      </tr>
+                      @endforeach
                     </tbody>
                     
                   </table>
