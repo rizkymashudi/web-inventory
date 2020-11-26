@@ -56,7 +56,7 @@
                         <td>{{ $itm->tanggal }}</td>
                         <td>
                             <div class="d-flex flex-nowrap justify-content-center">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataStock"><i class="far fa-edit"></i></button>&nbsp;
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataStock{{ $itm->id_transaksi }}"><i class="far fa-edit"></i></button>&nbsp;
                                 <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataStock"><i class="far fa-trash-alt"></i></button>&nbsp;
                                 <button class="btn btn-success" data-toggle="modal" data-target="#OutcomeStock"><i class="fas fa-sign-out-alt"></i></button> 
                             </div>
@@ -95,7 +95,7 @@
                     <h4>form input data</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="#" id="formAddNewStock" name="newStock">
+                  <form method="post" action="{{ route('CreateIncomingStock') }}" enctype="multipart/form-data" name="newStock">
                         @csrf
                         <div class="modal-body">
                           <div class="form-group">
@@ -108,19 +108,19 @@
                           </div>
                           <div class="form-group">
                               <label for="Code">Code</label>
-                              <input type="text" class="form-control form-control-sm" id="CodeBarang" placeholder="Code" name="CodeBarang">
+                              <input type="text" class="form-control form-control-sm" id="CodeBarang" placeholder="Code" name="ItemCode">
                           </div>
                           <div class="form-group">
                               <label for="Nama">Name</label>
-                              <input type="text" class="form-control form-control-sm" id="StockName" placeholder="Name" name="StockName">
+                              <input type="text" class="form-control form-control-sm" id="StockName" placeholder="Name" name="ItemName">
                           </div>
                           <div class="form-group">
                               <label for="unitID">Choose unit</label>
-                              <select class="form-control form-control-sm" style="width: 100%;" required name="unit_id"> 
+                              <select class="form-control form-control-sm" style="width: 100%;" required name="unit"> 
                                 <option selected disabled value="">Choose...</option>
-                                
-                                  <option value="satu">Test</option>
-                               
+                                @foreach ($Unit as $unt)
+                                  <option value="{{ $unt->kode_satuan}}">{{ $unt->kode_satuan }}</option>  
+                                @endforeach
                               </select>
                           </div>
                           <div class="form-group">
@@ -128,7 +128,7 @@
                               <input type="number" class="form-control form-control-sm" id="qty" placeholder="Input Qty" name="Stockquantity" min="0">
                           </div>
                           <div class="modal-footer">
-                              <button type="submit" class="btn btn-primary" form="formAddNewStock"><i class="far fa-save"></i>&nbsp;Simpan</button>
+                              <button type="submit" class="btn btn-primary"><i class="far fa-save"></i>&nbsp;Simpan</button>
                               <button type="submit" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;Batal</button>
                           </div>
                         </div> 
@@ -142,7 +142,8 @@
 
 
       {{-- MODAL UPDATE STOCK --}}
-      <div class="modal fade" id="updateDataStock" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      @foreach ($items as $itm)
+      <div class="modal fade" id="updateDataStock{{ $itm->id_transaksi }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -161,7 +162,7 @@
                         <div class="modal-body">
                           <div class="form-group">
                               <label for="TID">Transaction ID</label>
-                              <input type="text" class="form-control form-control-sm" id="transactionID" name="TransactionID" value="WI-<?=date('Y');?><?=random_string('numeric', 8)?>" readonly>
+                              <input type="text" class="form-control form-control-sm" id="transactionID" name="TransactionID" value="{{ $itm->id_transaksi }}" readonly>
                           </div>
                           <div class="form-group">
                               <label for="date">Choose date</label>
@@ -199,8 +200,9 @@
              
           </div>
         </div>
-      </div>
-
+      </div>    
+      @endforeach
+      
 
       {{-- MODAL DELETE STOCK --}}
       <div class="modal fade" id="deleteDataStock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
