@@ -25,6 +25,7 @@ Route::post('Updatestock', 'StockController@update')->name('UpdateIncomingStock'
 Route::delete('Deletestock', 'StockController@delete')->name('DeleteIncomingStock');
 
 Route::get('outcomingstock', 'OutcomeStockController@index')->name('OutcomingStock');
+Route::post('outcomingstock', 'OutcomeStockController@store')->name('InsertOutcomingStock');
 
 
 

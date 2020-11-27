@@ -58,7 +58,7 @@
                             <div class="d-flex flex-nowrap justify-content-center">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataStock{{ $itm->id_transaksi }}"><i class="far fa-edit"></i></button>&nbsp;
                                 <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataStock{{ $itm->id_transaksi}}"><i class="far fa-trash-alt"></i></button>&nbsp;
-                                <button class="btn btn-success" data-toggle="modal" data-target="#OutcomeStock"><i class="fas fa-sign-out-alt"></i></button> 
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#OutcomeStock{{ $itm->id_transaksi }}"><i class="fas fa-sign-out-alt"></i></button> 
                             </div>
                         </td>
                       </tr>
@@ -220,7 +220,7 @@
               @csrf
               <div class="modal-body">
                 Are you sure want to delete Transaction ID {{ $itm->id_transaksi }}?
-                <input type="text" name="TransactionID" value="{{ $itm->id_transaksi }}">
+                <input type="hidden" name="TransactionID" value="{{ $itm->id_transaksi }}">
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Yes</button>
@@ -235,11 +235,12 @@
 
 
       {{-- MODAL OUTCOME STOCK --}}
-      <div class="modal fade" id="OutcomeStock" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      @foreach ($items as $itm)
+      <div class="modal fade" id="OutcomeStock{{ $itm->id_transaksi }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel">Update data exit stock</h3>
+              <h3 class="modal-title" id="exampleModalLabel">Update data Outcoming stock</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </div>
@@ -249,45 +250,40 @@
                     <h4>form input data</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="#" id="formAddNewStock" name="updateStock">
+                    <form method="post" action="{{ route('InsertOutcomingStock') }}"  enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                           <div class="form-group">
                               <label for="TID">Transaction ID</label>
-                              <input type="text" class="form-control form-control-sm" id="transactionID" name="TransactionID" value="WI-<?=date('Y');?><?=random_string('numeric', 8)?>" readonly>
+                              <input type="text" class="form-control form-control-sm" name="TransactionID" value="{{ $itm->id_transaksi }}" readonly>
                           </div>
                           <div class="form-group">
                               <label for="date">Incoming date</label>
-                              <input type="date" class="form-control form-control-sm" id="pickDate" name="inComingDate" readonly>
+                              <input type="date" class="form-control form-control-sm" name="inComingDate" value="{{ $itm->tanggal }}" readonly>
                           </div>
                           <div class="form-group">
-                            <label for="date">Exit date</label>
-                            <input type="date" class="form-control form-control-sm" id="pickDate" name="exitDate">
+                            <label for="date">Outcoming date</label>
+                            <input type="date" class="form-control form-control-sm" name="outcomingDate">
                         </div>
                           <div class="form-group">
                               <label for="Code">Code</label>
-                              <input type="text" class="form-control form-control-sm" id="CodeBarang" placeholder="Code" name="CodeBarang" readonly>
+                              <input type="text" class="form-control form-control-sm" name="ItemCode" value="{{ $itm->kode_barang }}" readonly>
                           </div>
                           <div class="form-group">
                               <label for="Nama">Name</label>
-                              <input type="text" class="form-control form-control-sm" id="StockName" placeholder="Name" name="StockName" disabled>
+                              <input type="text" class="form-control form-control-sm" name="ItemName" value="{{ $itm->nama_barang }}" readonly>
                           </div>
                           <div class="form-group">
                               <label for="unitID">Choose unit</label>
-                              <select class="form-control form-control-sm" style="width: 100%;" required name="unit_id" readonly> 
-                                <option selected disabled value="">Choose...</option>
-                                
-                                  <option value="satu">Test</option>
-                               
-                              </select>
+                              <input type="text" class="form-control form-control-sm" name="unit" value="{{ $itm->satuan }}" readonly>
                           </div>
                           <div class="form-group">
                               <label for="Qty">Quantity</label>
-                              <input type="number" class="form-control form-control-sm" id="qty" placeholder="Input Qty" name="Stockquantity" min="0">
+                              <input type="number" class="form-control form-control-sm" name="Stockquantity" min="0" value="{{ $itm->jumlah }}">
                           </div>
                           <div class="modal-footer">
-                              <button type="submit" class="btn btn-primary" form="formAddNewStock"><i class="far fa-save"></i>&nbsp;Simpan</button>
-                              <button type="submit" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;Batal</button>
+                              <button type="submit" class="btn btn-primary"><i class="far fa-save"></i>&nbsp;Simpan</button>
+                              <button type="button    " class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;Batal</button>
                           </div>
                         </div> 
                     </form> 
@@ -296,7 +292,9 @@
              
           </div>
         </div>
-      </div>
+      </div>   
+      @endforeach
+     
 
 
       <script>
