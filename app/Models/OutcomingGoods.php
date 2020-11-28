@@ -10,6 +10,7 @@ class OutcomingGoods extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $primaryKey = 'id'; 
     protected $table = 'web_inventory.outcominggoods';
 
     public $timestamps = false;

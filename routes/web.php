@@ -26,6 +26,7 @@ Route::delete('Deletestock', 'StockController@delete')->name('DeleteIncomingStoc
 
 Route::get('outcomingstock', 'OutcomeStockController@index')->name('OutcomingStock');
 Route::post('outcomingstock', 'OutcomeStockController@store')->name('InsertOutcomingStock');
+Route::get('PrintPDF/{transaction}', 'InvoiceController@generateInvoice')->name('printReportpdf');
 
 
 

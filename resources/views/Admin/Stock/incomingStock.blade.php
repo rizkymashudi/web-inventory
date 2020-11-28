@@ -91,7 +91,7 @@
             </div>
 
             <div class="card" style="margin: 10px;">
-                <div class="card-header">
+                <div class="card-header bg-dark">
                     <h4>form input data</h4>
                 </div>
                 <div class="card-body">
@@ -153,7 +153,7 @@
             </div>
 
             <div class="card" style="margin: 10px;">
-                <div class="card-header">
+                <div class="card-header bg-dark">
                     <h4>form input data</h4>
                 </div>
                 <div class="card-body">
@@ -246,7 +246,7 @@
             </div>
 
             <div class="card" style="margin: 10px;">
-                <div class="card-header">
+                <div class="card-header bg-dark">
                     <h4>form input data</h4>
                 </div>
                 <div class="card-body">

@@ -28,8 +28,8 @@
               <div class="card-header">
                 <h2 class="card-title"><b>Outcoming Stock</b></h2>
                 <div class="float-right">
-                  <button href="#" class="btn btn-sm btn-success text-decoration-none" type="button" data-toggle="modal" data-target="#createDataStock">Create new stock</button>&nbsp;
-                  <button href="#" class="btn btn-sm btn-warning text-decoration-none" type="button">Manual invoice</button>
+                  <a href="{{ route('incomingStock') }}" class="btn btn-sm btn-success text-decoration-none" type="button">Create new outcoming stock</a>&nbsp;
+                  <button href="#" class="btn btn-sm btn-warning text-decoration-none" type="button">print manual invoice</button>
                 </div>
                 
               </div>
@@ -59,9 +59,9 @@
                         <td>{{ $Ocgd->satuan }}</td>
                         <td>{{ $Ocgd->jumlah }}</td>
                         <td>
-                            <div class="d-flex flex-nowrap justify-content-center">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataStock"><i class="far fa-edit"></i></button>&nbsp;
-                            </div>
+                          <div class="d-flex flex-nowrap justify-content-center">
+                            <a href="{{ route('printReportpdf', $Ocgd->id_transaksi) }}" type="submit" class="btn btn-primary" target="_blank"><i class="far fa-edit"></i></a>
+                          </div>
                         </td>
                       </tr>
                     @endforeach
