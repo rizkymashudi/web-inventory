@@ -28,7 +28,7 @@
             <div class="card-header">
               <h2 class="card-title"><b>Users</b></h2>
               <div class="float-right">
-                <button class="btn btn-sm btn-success text-decoration-none" type="button" data-toggle="modal" data-target="#createDataUnit">Create new user</button>
+                <button class="btn btn-sm btn-success text-decoration-none" type="button" data-toggle="modal" data-target="#createDataUser">Create new user</button>
               </div>
               
             </div>
@@ -45,18 +45,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>abdul</td>
-                        <td>Xxx@xxx.x</td>
-                        <td>admin</td>
-                        <td>12724</td>
-                        <td>
-                            <div class="d-flex flex-nowrap justify-content-center" style="width: 30%; margin: 0px auto">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUser"><i class="far fa-edit"></i></button>&nbsp;
-                                <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteUser"><i class="far fa-trash-alt"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                  @foreach ($user as $usr)
+                  <tr>
+                    <td>{{ $usr->username }}</td>
+                    <td>{{ $usr->email }}</td>
+                    <td>{{ convertInt($usr->role) }}</td>
+                    <td>{{ $usr->last_login }}</td>
+                    <td>
+                        <div class="d-flex flex-nowrap justify-content-center" style="width: 30%; margin: 0px auto">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUser"><i class="far fa-edit"></i></button>&nbsp;
+                            <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteUser"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </td>
+                  </tr>
+                  @endforeach
                 </tbody>
                 
               </table>
@@ -72,6 +74,54 @@
     <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+
+
+{{-- MODAL CREATE NEW STOCK --}}
+<div class="modal fade" id="createDataUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Create new user</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </div>
+
+      <div class="card" style="margin: 10px;">
+          <div class="card-header bg-dark">
+              <h4>form input data</h4>
+          </div>
+          <div class="card-body">
+            <form method="post" action="{{ Route('CreateNewUser') }}" enctype="multipart/form-data" name="createNewUser">
+                  @csrf
+                  <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Username">Username</label>
+                        <input type="text" class="form-control form-control-sm" name="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control form-control-sm" name="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="Role">Choose Role</label>
+                        <select class="form-control form-control-sm" style="width: 100%;" required name="Role"> 
+                          <option selected disabled value="">Choose...</option>
+                            <option value="1">Admin</option>
+                            <option value="0">User</option>  
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="far fa-save"></i>&nbsp;Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;Batal</button>
+                    </div>
+                  </div> 
+              </form> 
+          </div>
+      </div>
+       
+    </div>
+  </div>
+</div>
 
 <script>
     $(document).ready(function() {

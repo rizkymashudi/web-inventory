@@ -31,3 +31,12 @@ function random_string($type = 'alnum', $len = 8){
             return sha1(uniqid(mt_rand(), TRUE));
     endswitch;
 }
+
+function convertInt($int){
+        
+    if($int === 1):
+        return 'Admin';
+    elseif($int === 0):
+        return 'User';
+    endif;
+}

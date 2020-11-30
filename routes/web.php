@@ -32,4 +32,7 @@ Route::get('PrintPDF/{transaction}', 'InvoiceController@generateInvoice')->name(
 
 Route::get('UnitStock', 'UnitController@index')->name('UnitStock');
 Route::get('UserSetting', 'UserSettingController@index')->name('UserSetting');
+
+
 Route::get('UserManagement', 'UserManagementController@index')->name('UserManagement');
+Route::post('UserManagement', 'UserManagementController@store')->name('CreateNewUser');
