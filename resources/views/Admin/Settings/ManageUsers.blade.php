@@ -54,7 +54,7 @@
                     <td>
                         <div class="d-flex flex-nowrap justify-content-center" style="width: 30%; margin: 0px auto">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUser"><i class="far fa-edit"></i></button>&nbsp;
-                            <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteUser"><i class="far fa-trash-alt"></i></button>
+                            <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteUser{{ $usr->id }}"><i class="far fa-trash-alt"></i></button>
                         </div>
                     </td>
                   </tr>
@@ -122,6 +122,39 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+{{-- MODAL DELETE STOCK --}}
+@foreach ($user as $usr)
+<div class="modal fade" id="deleteUser{{ $usr->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Delete user</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{ route('DeleteUser') }}" method="POST">
+        @method('delete')
+        @csrf
+        <div class="modal-body">
+          Are you sure want to delete User {{ $usr->username }} ?
+          <input type="hidden" name="id" value="{{ $usr->id }}">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
+
 
 <script>
     $(document).ready(function() {

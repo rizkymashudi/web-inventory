@@ -20,6 +20,8 @@ class UserManagementController extends Controller
         
         $data = $request->all();
 
+        $userAlready = User::all();
+
         $validate = Validator::make($data, [
             'Username' => 'required|regex:/^\S*$/u',
             'Email'    => 'required|email',
@@ -31,6 +33,16 @@ class UserManagementController extends Controller
             return back();
         endif;
 
+        $arrUserAlready = array();
+        foreach($userAlready as $ua):
+            $arrUserAlready[] = $ua->username;
+        endforeach;
+
+        if(in_array($data['Username'], $arrUserAlready)):
+            Alert::error('Error!', 'User Already create');
+            return back();
+        endif;
+
         User::create([
             'username' => strtolower($data['Username']),
             'email'    => $data['Email'],
@@ -39,6 +51,16 @@ class UserManagementController extends Controller
         ]);
 
         Alert::success('Success', 'Create new user success!');
+        return back();
+    }
+
+    public function delete(Request $request){
+
+        $userID = $request->id;
+        
+        User::where('id', '=', $userID)->delete();
+
+        Alert::success('Success!', 'Delete User Complete');
         return back();
     }
 }

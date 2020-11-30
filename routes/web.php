@@ -36,3 +36,4 @@ Route::get('UserSetting', 'UserSettingController@index')->name('UserSetting');
 
 Route::get('UserManagement', 'UserManagementController@index')->name('UserManagement');
 Route::post('UserManagement', 'UserManagementController@store')->name('CreateNewUser');
+Route::delete('UserManagement/delete', 'UserManagementController@delete')->name('DeleteUser');
