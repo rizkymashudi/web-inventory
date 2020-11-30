@@ -53,7 +53,7 @@
                     <td>{{ $usr->last_login }}</td>
                     <td>
                         <div class="d-flex flex-nowrap justify-content-center" style="width: 30%; margin: 0px auto">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUser"><i class="far fa-edit"></i></button>&nbsp;
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDataUser{{ $usr->id }}"><i class="far fa-edit"></i></button>&nbsp;
                             <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteUser{{ $usr->id }}"><i class="far fa-trash-alt"></i></button>
                         </div>
                     </td>
@@ -76,7 +76,7 @@
 <!-- /.content -->
 
 
-{{-- MODAL CREATE NEW STOCK --}}
+{{-- MODAL CREATE NEW USER --}}
 <div class="modal fade" id="createDataUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -123,8 +123,64 @@
   </div>
 </div>
 
+@foreach ($user as $usr)
+{{-- MODAL UPDATE USER --}}
+<div class="modal fade" id="updateDataUser{{ $usr->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Update user</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </div>
 
+      <div class="card" style="margin: 10px;">
+          <div class="card-header bg-dark">
+              <h4>form input data</h4>
+          </div>
+          <div class="card-body">
+            <form method="post" action="{{ Route('UpdateUser') }}" enctype="multipart/form-data" name="UpdateUser">
+                  @csrf
+                  <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Username">Username</label>
+                        <input type="text" class="form-control form-control-sm" name="Username" value="{{ $usr->username }}">
+                        <input type="hidden" class="form-control form-control-sm" name="ID" value="{{ $usr->id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control form-control-sm" name="Email" value="{{ $usr->email }}">
+                    </div>
+                    <div class="form-group">
+                      <label for="Role">Choose Role</label>
+                      <select class="form-control form-control-sm" style="width: 100%;" required name="Role"> 
+                        <option selected disabled value="{{ convertInt($usr->role) }}">{{ convertInt($usr->role) }}</option>
+                          <option value="1">Admin</option>
+                          <option value="0">User</option>  
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="InputNewPassword">New Password</label>
+                      <input type="password" class="form-control form-control-sm" placeholder="Enter new Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputConfirmPassword">Confirm new Password</label>
+                        <input type="password" class="form-control form-control-sm" placeholder="Enter confirm new password" name="Password">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="far fa-save"></i>&nbsp;Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;Batal</button>
+                    </div>
+                  </div> 
+              </form> 
+          </div>
+      </div>
+       
+    </div>
+  </div>
+</div>
 
+@endforeach
 
 
 {{-- MODAL DELETE STOCK --}}

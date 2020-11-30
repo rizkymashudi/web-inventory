@@ -54,6 +54,32 @@ class UserManagementController extends Controller
         return back();
     }
 
+    public function update(Request $request){
+
+        $Data = $request->all();
+
+        $validate = Validator::make($Data, [
+            'Username' => 'required|regex:/^\S*$/u',
+            'Email'    => 'required|email',
+            'Role'     => 'required|integer'
+        ]);
+
+        if($validate->fails()):
+            Alert::error('Error!', $validate->errors()->first());
+            return back();
+        endif;
+
+        User::where('id', '=', $Data['ID'])->update([
+            'username'  => strtolower($Data['Username']),
+            'email'     => $Data['Email'],
+            'role'      => $Data['Role'],
+            'password'  => bcrypt($Data['Password'])
+        ]);
+
+        Alert::success('Success!', 'Update User complete!');
+        return back();
+    }
+
     public function delete(Request $request){
 
         $userID = $request->id;
