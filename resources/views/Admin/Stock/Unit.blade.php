@@ -45,17 +45,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>4</td>
-                        <td>X</td>
-                        <td>234234</td>
-                        <td>
-                            <div class="d-flex flex-nowrap justify-content-center" style="width: 30%; margin: 0px auto">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUnit"><i class="far fa-edit"></i>Update</button>&nbsp;
-                                <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataUnit"><i class="far fa-trash-alt"></i>Delete</button>
-                            </div>
-                        </td>
-                    </tr>
+                  @php
+                      $no = 1;
+                  @endphp
+                  @foreach ($Unit as $Unt)
+                  <tr>
+                    <td>{{ $no }}</td>
+                    <td>{{ $Unt->kode_satuan }}</td>
+                    <td>{{ $Unt->nama_satuan }}</td>
+                    <td>
+                        <div class="d-flex flex-nowrap justify-content-center" style="width: 30%; margin: 0px auto">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUnit"><i class="far fa-edit"></i>Update</button>&nbsp;
+                            <button type="submit" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#deleteDataUnit"><i class="far fa-trash-alt"></i>Delete</button>
+                        </div>
+                    </td>
+                  </tr>
+                  @php
+                      $no++;
+                  @endphp
+                  @endforeach
                 </tbody>
                 
               </table>
