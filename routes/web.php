@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
+Route::get('login', 'loginController@index')->name('login');
+Route::get('Register', 'RegisterController@index')->name('register');
+
 Route::get('dashboard', 'DashboardController@index')->name('Dashboard');
 
 Route::get('stock', 'StockController@index')->name('incomingStock');
