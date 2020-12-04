@@ -69,7 +69,7 @@ class UserManagementController extends Controller
             return back();
         endif;
 
-        User::where('id', '=', $Data['ID'])->update([
+        User::where('user_id', '=', $Data['ID'])->update([
             'username'  => strtolower($Data['Username']),
             'email'     => $Data['Email'],
             'role'      => $Data['Role'],
@@ -84,7 +84,7 @@ class UserManagementController extends Controller
 
         $userID = $request->id;
         
-        User::where('id', '=', $userID)->delete();
+        User::where('user_id', '=', $userID)->delete();
 
         Alert::success('Success!', 'Delete User Complete');
         return back();
